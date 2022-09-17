@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SMSController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +26,6 @@ Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 
 Route::get('auth/token/{token}', [AuthController::class, 'authenticate']);
+
+
+Route::get('controller', SMSController::class);
