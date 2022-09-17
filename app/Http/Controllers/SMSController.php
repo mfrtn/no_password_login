@@ -11,26 +11,20 @@ class SMSController extends Controller
     {
 
         try {
+
+            $sender = "10007700044000";
             $receptor = "09212745038";
-            $tokens = ['123', '456', '789'];
-            $template = "invoice";
+            $receptors = "09212745038,09125003001";
+
+            $tokens = ['asda', 'ali',];
+            $template = "verify-withdraw";
+
+            $message = "تست ارسال پیام ساده";
 
             $result = $output->sendVerifySMS($receptor, $tokens, $template);
+            // $result = $output->sendSimpleSMS($sender, $receptors, $message);
 
-            // dd($result);
-            if ($result) {
-                foreach ($result as $r) {
-                    echo "messageid = $r->messageid<br />";
-                    echo "message = $r->message<br />";
-                    echo "status = $r->status<br />";
-                    echo "statustext = $r->statustext<br />";
-                    echo "sender = $r->sender<br />";
-                    echo "receptor = $r->receptor<br />";
-                    echo "date = $r->date<br />";
-                    echo "cost = $r->cost<br />";
-                }
-            }
-            return 'done';
+            return $result;
         } catch (\Kavenegar\Exceptions\ApiException $e) {
             // در صورتی که خروجی وب سرویس 200 نباشد این خطا رخ می دهد
             return $e->errorMessage();
