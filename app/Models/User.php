@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'mobile',
     ];
 
     /**
@@ -44,5 +45,10 @@ class User extends Authenticatable
     public static function byEmail($email)
     {
         return static::where('email', $email)->firstOrFail();
+    }
+
+    public static function byMobile($mobile)
+    {
+        return static::where('mobile', $mobile)->firstOrFail();
     }
 }

@@ -20,12 +20,17 @@ class AuthenticateUser
     $this->request = $request;
   }
 
-  public function invite()
+  public function invite($output)
   {
     // apurdy@example.net
+    // $this->validateRequest()
+    //   ->createToken()
+    //   ->sendEmail();
+
+    // 09381970033
     $this->validateRequest()
       ->createToken()
-      ->send();
+      ->sendSMS($output, $this->request);
   }
 
   public function login(LoginToken $token)
@@ -36,8 +41,12 @@ class AuthenticateUser
 
   protected function validateRequest()
   {
+    // $this->validate($this->request, [
+    //   'email' => 'required|email|exists:users'
+    // ]);
+
     $this->validate($this->request, [
-      'email' => 'required|email|exists:users'
+      'mobile' => 'required|exists:users'
     ]);
 
     return $this;
@@ -45,7 +54,9 @@ class AuthenticateUser
 
   protected function createToken()
   {
-    $user = User::byEmail($this->request->email);
+    // $user = User::byEmail($this->request->email);
+
+    $user = User::byMobile($this->request->mobile);
 
     return LoginToken::generateFor($user);
   }

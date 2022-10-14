@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\SMS;
 use App\AuthenticateUser;
 use App\Models\LoginToken;
 use Illuminate\Support\Facades\Auth;
@@ -20,12 +21,13 @@ class AuthController extends Controller
         return view('login');
     }
 
-    public function postLogin()
+    public function postLogin(SMS $output)
     {
 
-        $this->auth->invite();
+        $this->auth->invite($output);
 
-        return 'go check email';
+        // return 'go check email';
+        return 'check sms';
     }
 
     public function logout()

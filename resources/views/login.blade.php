@@ -19,8 +19,11 @@
             <h2 class="form-signin-heading">Please Sign in</h2>
             <label for="inputEmail" class="sr-only">Email Address</label>
 
-            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address"
-                required>
+            {{-- <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address"
+                required> --}}
+
+            <input type="text" name="mobile" id="mobile" class="form-control" placeholder="mobile" required>
+
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>
 

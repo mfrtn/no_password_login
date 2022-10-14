@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class LoginToken extends Model
 {
@@ -25,11 +25,16 @@ class LoginToken extends Model
     {
         return static::create([
             'user_id' => $user->id,
-            'token' =>  Str::random(50),
+            // 'token' =>  Str::random(50),
+            'token' =>  Str::random(10),
+
         ]);
     }
 
-    public function send()
+
+    // Send Email
+
+    public function sendEmail()
     {
         $url = url('/auth/token', $this->token);
         // dd($url);
@@ -41,6 +46,30 @@ class LoginToken extends Model
             }
         );
     }
+
+
+    // Send SMS
+    public function sendSMS($output, $request)
+    {
+        $url = url('/auth/token', $this->token);
+
+        try {
+
+            $receptor = $request->mobile;
+            $tokens = [$url];
+            $template = "accept-withdraw";
+            $output->sendVerifySMS($receptor, $tokens, $template);
+
+            // return $result;
+        } catch (\Kavenegar\Exceptions\ApiException $e) {
+            // در صورتی که خروجی وب سرویس 200 نباشد این خطا رخ می دهد
+            return $e->errorMessage();
+        } catch (\Kavenegar\Exceptions\HttpException $e) {
+            // در زمانی که مشکلی در برقرای ارتباط با وب سرویس وجود داشته باشد این خطا رخ می دهد
+            return $e->errorMessage();
+        }
+    }
+
 
     public function user()
     {

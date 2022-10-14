@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\KavehnegarSMS;
 use App\Services\SMS;
 use Illuminate\Http\Request;
 
@@ -16,13 +17,14 @@ class SMSController extends Controller
             $receptor = "09212745038";
             $receptors = "09212745038,09125003001";
 
-            $tokens = ['asda', 'ali',];
-            $template = "verify-withdraw";
+            // $tokens = ['asda', 'ali',];
+            $tokens = ['test'];
+            $template = "accept-withdraw";
 
             $message = "تست ارسال پیام ساده";
 
             $result = $output->sendVerifySMS($receptor, $tokens, $template);
-            // $result = $output->sendSimpleSMS($sender, $receptors, $message);
+            // $result = $output->sendSimpleSMS($sender, $receptor, $message);
 
             return $result;
         } catch (\Kavenegar\Exceptions\ApiException $e) {
